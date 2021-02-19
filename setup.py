@@ -10,4 +10,6 @@ setup(name='logger_serv_py_cli',
       install_requires=[
           'requests',
       ],
+      py_modules=['logger_serv_py_cli'],
+
       zip_safe=False)
