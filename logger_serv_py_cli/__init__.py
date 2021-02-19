@@ -1,4 +1,4 @@
-__all__ = ['client']
+__all__ = ['client', 'decorators', 'utils']
 
 version_info = (0, 1)
 
