@@ -1,15 +1,11 @@
 from setuptools import setup
+import re
 
-setup(name='logger_serv_py_cli',
-      version='0.1',
-      description='Server for logs',
-      url='https://github.com/mlnagents/logger_serv_py_cli',
-      author='Andrey Kusko',
-      author_email='a.kusko@list.ru',
-      license='MA',
-      install_requires=[
-          'requests',
-      ],
-      py_modules=['logger_serv_py_cli'],
+with open("__init__.py", encoding="utf8") as f:
+    version = re.search(r'__version__ = "(.*?)"', f.read(), re.M).group(1)
 
-      zip_safe=False)
+setup(
+    name="logger_serv_py_cli",
+    version=version,
+    install_requires=["requests"],
+)
