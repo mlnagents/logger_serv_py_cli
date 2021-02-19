@@ -2,7 +2,6 @@ import json
 import os
 import logging
 
-from rest_framework.status import HTTP_201_CREATED
 import requests
 import typing as tp
 import datetime as dt
@@ -108,9 +107,6 @@ class ServLogger(object):
         }
         headers = {"Authorization": LOGGER_AUTH_TOKEN}
         response = requests.post(url=LOGGER_SERV_LINK, headers=headers, data=form_data)
-        if response.status_code != HTTP_201_CREATED:
-            # toDO: fix it
-            raise Exception("Log server no response!")
         return response
 
 
