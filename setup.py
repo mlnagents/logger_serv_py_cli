@@ -7,7 +7,6 @@ setup(name='logger_serv_py_cli',
       author='Andrey Kusko',
       author_email='a.kusko@list.ru',
       license='MA',
-      packages=['logger_serv_py_cli'],
       install_requires=[
           'requests',
       ],
