@@ -1,7 +1,8 @@
 import json
 import os
-from .utils import get_jsonable_arg
+import typing as tp
 from requests_futures.sessions import FuturesSession
+from .utils import get_jsonable_arg
 
 session = FuturesSession()
 
@@ -56,7 +57,9 @@ class ServLogger(object):
             return instance_data
         return {}
 
-    def create_log(self, level: str, msg: str, data, instance=None, *args, **kwargs):
+    def create_log(self, level: str, msg: str, data: tp.Optional[tp.Dict[str, tp.Any]] = None, instance=None, *args, **kwargs):
+        if not data:
+            data = {}
         forbidden_to_use_keys_if_instance = {CLASS_NAME, OBJECT_ID}
         if set(data.keys()) & forbidden_to_use_keys_if_instance:
             raise Exception(f"Do not use keys {forbidden_to_use_keys_if_instance} in data dict.")
