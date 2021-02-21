@@ -31,7 +31,7 @@ def get_jsonable_arg(stranger):
         if type(stranger) in {set, list, tuple}:
             result = [get_jsonable_arg(item) for item in stranger]
         elif type(stranger) is dict:
-            result = {i:get_jsonable_arg(items) for i, items in enumerate(stranger.items())}
+            result = {i: get_jsonable_arg(items) for i, items in enumerate(stranger.items())}
         else:
             result = {"obj": type(stranger).__name__}
             if hasattr(stranger, "pk"):

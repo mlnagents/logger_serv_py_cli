@@ -29,7 +29,6 @@ class ServLogger(object):
     def __init__(self, logger_type=None):
         if logger_type:
             self.logger_type = logger_type
-        return
 
     def debug(self, *args, **kwargs):
         self.create_log(level=LoggerLVL.debug, *args, **kwargs)
@@ -57,7 +56,7 @@ class ServLogger(object):
             return instance_data
         return {}
 
-    def create_log(self, level: str, msg: str, data: tp.Optional[tp.Dict[str, tp.Any]] = None, instance=None, *args, **kwargs):
+    def create_log(self, *args, level: str, msg: str, data: tp.Optional[tp.Dict[str, tp.Any]] = None, instance=None,  **kwargs):
         if not data:
             data = {}
         forbidden_to_use_keys_if_instance = {CLASS_NAME, OBJECT_ID}
@@ -74,7 +73,7 @@ class ServLogger(object):
             headers={"Authorization": LOGGER_AUTH_TOKEN},
             data={
                 "lvl": level,
-                "logger_type": "async_logger 2.0",
+                "logger_type": self.logger_type,
                 "msg": msg,
                 "data": json.dumps(data),
             }
