@@ -33,7 +33,7 @@ def log_function(level: str = "info", msg="Log func", is_class_method: bool = Fa
             if kwargs:
                 data["in"]["kwargs"] = {key: get_jsonable_arg(value) for key, value in kwargs.items()}
             if result:
-                data["out"] = result
+                data["out"] = get_jsonable_arg(result)
             logger_level(msg=msg, instance=args[0] if is_class_method else None, data=data)
             return result
 

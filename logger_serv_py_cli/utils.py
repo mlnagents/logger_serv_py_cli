@@ -18,13 +18,22 @@ def get_changed_values_data(
     return old_values, new_values
 
 
-def get_jsonable_arg(x):
+def get_jsonable_arg(stranger):
     """
     Возвращает объекты, которые могут быть превращены в json,
     в обратном случае возвращают имя объекта.
     """
+
     try:
-        json.dumps(x)
-        return x
+        json.dumps(stranger)
+        return stranger
     except (TypeError, OverflowError):
-        return type(x).__name__
+        if type(stranger) in {set, list, tuple}:
+            result = [get_jsonable_arg(item) for item in stranger]
+        elif type(stranger) is dict:
+            result = {i:get_jsonable_arg(items) for i, items in enumerate(stranger.items())}
+        else:
+            result = {"obj": type(stranger).__name__}
+            if hasattr(stranger, "pk"):
+                result['pk'] = stranger.pk
+        return result
