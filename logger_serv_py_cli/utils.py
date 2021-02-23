@@ -2,6 +2,9 @@ import datetime as dt
 import typing as tp
 import json
 
+OBJECT_ID = "obj_id"
+CLASS_NAME = "class_name"
+
 
 def get_changed_values_data(
         old_data: tp.Dict[str, tp.Any], new_data: tp.Dict[str, tp.Any]
@@ -37,3 +40,14 @@ def get_jsonable_arg(stranger):
             if hasattr(stranger, "pk"):
                 result['pk'] = stranger.pk
         return result
+
+
+def get_data_from_instance(instance):
+    if instance:
+        instance_data = {
+            CLASS_NAME: instance.__class__.__name__,
+            OBJECT_ID: instance.id if hasattr(instance, "id") else None,
+        }
+
+        return instance_data
+    return {}

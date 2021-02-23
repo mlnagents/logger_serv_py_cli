@@ -2,15 +2,12 @@ import json
 import os
 import typing as tp
 from requests_futures.sessions import FuturesSession
-from .utils import get_jsonable_arg
+from .utils import get_jsonable_arg, get_data_from_instance, OBJECT_ID, CLASS_NAME
 
 session = FuturesSession()
 
 LOGGER_SERV_LINK = os.environ.get("LOGGER_SERV_LINK")
 LOGGER_AUTH_TOKEN = os.environ.get("LOGGER_AUTH_TOKEN")
-
-OBJECT_ID = "obj_id"
-CLASS_NAME = "class_name"
 
 
 class LoggerLVL:
@@ -45,24 +42,13 @@ class ServLogger(object):
     def critical(self, *args, **kwargs):
         self.create_log(level=LoggerLVL.critical, *args, **kwargs)
 
-    @staticmethod
-    def get_data_from_instance(instance):
-        if instance:
-            instance_data = {
-                CLASS_NAME: instance.__class__.__name__,
-                OBJECT_ID: instance.id if hasattr(instance, "id") else None,
-            }
-
-            return instance_data
-        return {}
-
     def create_log(self, *args, level: str, msg: str, data: tp.Optional[tp.Dict[str, tp.Any]] = None, instance=None,  **kwargs):
         if not data:
             data = {}
         forbidden_to_use_keys_if_instance = {CLASS_NAME, OBJECT_ID}
         if set(data.keys()) & forbidden_to_use_keys_if_instance:
             raise Exception(f"Do not use keys {forbidden_to_use_keys_if_instance} in data dict.")
-        data.update(**self.get_data_from_instance(instance))
+        data.update(**get_data_from_instance(instance))
         if args:
             data["args"] = [get_jsonable_arg(arg) for arg in args]
         if kwargs:
