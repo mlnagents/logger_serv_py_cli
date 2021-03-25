@@ -60,7 +60,7 @@ class ServLogger(object):
             data={
                 "lvl": level,
                 "logger_type": self.logger_type,
-                "msg": msg,
+                "message": msg,
                 "data": json.dumps(data),
             }
         )
