@@ -6,6 +6,6 @@ with open("logger_serv_py_cli/__init__.py", encoding="utf8") as f:
 
 setup(
     name="logger_serv_py_cli",
-    version=version,
+    version='0.1',
     install_requires=["requests", "requests-futures"],
 )
