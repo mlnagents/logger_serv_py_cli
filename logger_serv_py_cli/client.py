@@ -42,7 +42,7 @@ class ServLogger(object):
     def critical(self, *args, **kwargs):
         self.create_log(level=LoggerLVL.critical, *args, **kwargs)
 
-    def create_log(self, *args, level: str, msg: str, data: tp.Optional[tp.Dict[str, tp.Any]] = None, instance=None,  **kwargs):
+    def create_log(self, *args, level: str, message: str, data: tp.Optional[tp.Dict[str, tp.Any]] = None, instance=None,  **kwargs):
         if not data:
             data = {}
         forbidden_to_use_keys_if_instance = {CLASS_NAME, OBJECT_ID}
@@ -60,7 +60,7 @@ class ServLogger(object):
             data={
                 "lvl": level,
                 "logger_type": self.logger_type,
-                "message": msg,
+                "message": message,
                 "data": json.dumps(data),
             }
         )
