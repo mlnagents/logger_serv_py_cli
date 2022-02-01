@@ -1,11 +1,10 @@
-from setuptools import setup
-import re
-
-with open("logger_serv_py_cli/__init__.py", encoding="utf8") as f:
-    version = re.search(r'__version__ = "(.*?)"', f.read(), re.M).group(1)
+#!/usr/bin/env python
+from setuptools import setup, find_packages
 
 setup(
     name="logger_serv_py_cli",
     version='0.1',
+    packages = find_packages(),
+    include_package_data = True,
     install_requires=["requests", "requests-futures"],
 )
